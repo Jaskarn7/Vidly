@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { getMovies } from "./../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
-import MoviesTable from "./movieTable";
+import MoviesTable from "./moviesTable";
 import Pagination from "./common/Pagination";
 import { paginate } from '../utils/paginate';
 import ListGroup from "./common/ListGroup";
@@ -39,15 +39,7 @@ class Movies extends Component {
     this.setState({ movies });
   };
 
-  handleSort = path => {
-    const sortColumn = this.state.sortColumn;
-    if (sortColumn.path === path) {
-      sortColumn.order = (sortColumn.order === 'asc') ? 'desc' : 'asc';
-    }
-    else {
-      sortColumn.path = path;
-      sortColumn.order = 'asc';
-    }
+  handleSort = sortColumn => {
     this.setState({ sortColumn });
   };
 
@@ -78,14 +70,15 @@ class Movies extends Component {
           />
         </div>
         <div className="col">
-          <p>Showing {movies.length} movies in the database. </p>
+          <p>Showing {sorted.length} movies in the database. </p>
           <MoviesTable
             movies={movies}
+            sortColumn={this.state.sortColumn}
             onLike={this.handleLike}
             onDelete={this.handleDelete}
             onSort={this.handleSort}
           />
-          <Pagination itemCount={movies.length} pageSize={4} currentPage={this.state.currentPage} onPageChange={this.onPageChange}/>
+          <Pagination itemCount={sorted.length} pageSize={4} currentPage={this.state.currentPage} onPageChange={this.onPageChange}/>
         </div>
       </div>
     );
