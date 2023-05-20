@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import NavBar from "./NavBar";
 import { getMovies } from "./../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
 import MoviesTable from "./moviesTable";
